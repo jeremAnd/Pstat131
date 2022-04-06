@@ -1,0 +1,81 @@
+---
+Name: Jeremiah Anderson
+title: "Homework 1"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+```{r}
+
+library(tidyverse)
+library(tidymodels)
+library(ISLR)
+library(corrplot)
+```
+
+
+Q1: 
+  In supervised learning there is a result Y (supervisor) where as in unsupervised learning there is not supervising result.
+
+Q2:
+  In a regression model Y is quantitative and has numerical values. In a classifiation model Y is qualitative and has categorical        values.
+ 
+Q3:
+
+Q4: 
+  Descriptive: Used to best visually emphasize trends in data (Lecture 2)
+  Predictive: Use to try and predict the response with minimum reducible error (Lecture 2)
+  Inferential: Used to test theories on the relationship between the outcome and predictors (Lecture 2)
+  
+Q5: 
+  - A mechanistic model assunes a parametric form for f. Where as the empirically driven model makes no assumptions about f (thus making    it much more flexible by result)
+  - I'd the mechanistic model would be easier to understand because f and the parametric form has constraints that make it easier to       understand. The empirically driven model makes no assumptions and there for doesn't have these constraints.
+  - The bias-variance tradeoff involves giving up flexibility for interpretability. Often times we will increase bias to shrink the 
+    variance in the model making it more useful.
+  
+Q6:
+  - The first question is predictive because the aim is to predict the response (in this case the vote) based on
+    the inputs (voter profile)
+  - The second one is inferential because we are trying to test a theory on the relationship between a voters relationship/contact to 
+    the candidate and their vote. 
+
+```{r}
+hist(mpg$hwy)
+```
+Most cars have between 25 and 30 mpg
+
+```{r}
+ggplot(mpg, aes(hwy,cty)) + geom_point()
+```
+Highway mpg has a strong positive relationship with city mpg, they tend to increase together.
+
+```{r}
+par(mar=c(2,8,2,2))
+ggplot(mpg, aes(y=reorder(manufacturer,manufacturer,function(x)-length(x)))) + geom_bar()
+```
+
+```{r}
+ggplot(mpg, aes(x=hwy, group=cyl)) + geom_boxplot()
+```
+Highway mpg tends to decrease as the number of cylinders increases.
+
+```{r}
+mpg_num <- mpg %>% select(displ, hwy, year, cyl, cty)
+corrplot(cor(mpg_num), method = 'number', type = 'lower')
+```
+
+    Displacement is negatively correlated with hwy and city, but positively correlated with cylinders and year.
+    Highway is negatively correlated with cylinder and positively correlated with city.
+    year is positively correlated with city and cylinders.
+    Cylinders is negatively correlated with city.
+    
+    The only thing that surprised me was the positive correlation between city mpg and cylinders. I expected all mpg to increase
+    as cyllinders increase.
+    
+  
+  
+ 
